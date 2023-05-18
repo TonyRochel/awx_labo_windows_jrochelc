@@ -1,0 +1,20 @@
+---
+- hosts: windows02
+  tasks:
+  - name: creamos un directorio temporal
+    win_file:
+      path: c:\TEMP
+      state: directory
+  - name: descargamos el instalador de apache
+    win_get_url:
+      url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
+      dest: c:\TEMP
+  - name: Instalamos el MSI de apache
+    win_package:
+      path: c:\TEMP\httpd-2.2.25-win32-x86-no_ssl.msi
+      state: present
+  - name: Configuramos ServerAdmin address 
+    win_lineinfile:
+      patch: 'C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\httpd.conf'
+      regex: 
+      
