@@ -1,0 +1,15 @@
+---
+- hosts: "{{ servidores }}"
+  tasks:
+  - name: Install IIS (Web-Server only)
+    win_feature:
+      name: Web-Server
+      state: present
+
+  - name: Install IIS (Web-Server and Web-Common-Http)
+    win_shell:
+      name:
+      - Web-Server
+      state: absent
+
+  
